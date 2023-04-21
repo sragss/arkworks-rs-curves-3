@@ -19,10 +19,6 @@
 //!    * A = 486662
 //!    * B = 1
 
-#[cfg(feature = "r1cs")]
-pub mod constraints;
-mod curves;
 mod fields;
 
-pub use curves::*;
 pub use fields::*;
