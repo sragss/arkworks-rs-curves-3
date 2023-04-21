@@ -30,3 +30,24 @@ fn hexify(big: BigInt<4>) -> Vec<String> {
     big.0.iter().map(|num| format!("0x{:x}", num)).collect()
 }
 ```
+
+And 
+```
+fn main() {
+    println!("MODULUS {:?}", hexify(FqConfig::MODULUS));
+    println!("R {:?}", hexify(FqConfig::R));
+    println!("R2 {:?}", hexify(FqConfig::R2));
+    println!("MODULUS_MINUS_ONE_DIV_TWO {:?}", hexify(<Fq as PrimeField>::MODULUS_MINUS_ONE_DIV_TWO));
+    println!("T {:?}", hexify(<Fq as PrimeField>::TRACE));
+    println!("T_MINUS_ONE_DIV_TWO {:?}", hexify(<Fq as PrimeField>::TRACE_MINUS_ONE_DIV_TWO));
+    println!("GENERATOR {:?}", hexify(FqConfig::GENERATOR.into()));
+    println!("GENERATOR {:?}", FqConfig::GENERATOR);
+    println!("MOD BITS {:?}", <Fq as PrimeField>::MODULUS_BIT_SIZE);
+    println!("INVERSE {:?}", hexify(BigInt::<4>::from(FqConfig::INV)));
+    println!("INVERSE {:?}", FqConfig::INV);
+    println!("THATS ALL OF THEM");
+
+    println!("TWO_ADACITY {:?}", MontFq25519::TWO_ADICITY);
+    println!("TWO_ADIC_ROOT_OF_UNITY {:?}", hexify(FqConfig::TWO_ADIC_ROOT_OF_UNITY.into()));
+}
+```
