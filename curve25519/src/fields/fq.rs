@@ -1,4 +1,4 @@
-use ark_ff::{biginteger::BigInteger256 as BigInteger, Fp256Parameters, fields::FftParameters, FpParameters};
+use ark_ff::{biginteger::BigInteger256 as BigInteger, Fp256Parameters, fields::FftParameters, fields::Fp256, FpParameters};
 
 // use ark_ff::fields::{Fp256, MontBackend, MontConfig};
 
@@ -10,6 +10,7 @@ use ark_ff::{biginteger::BigInteger256 as BigInteger, Fp256Parameters, fields::F
 // pub struct FqConfig;
 // pub type Fq = Fp256<MontBackend<FqConfig, 4>>;
 
+pub type Fq = Fp256<FqParameters>;
 
 pub struct FqParameters;
 impl Fp256Parameters for FqParameters {}

@@ -1,4 +1,4 @@
-use ark_ff::{biginteger::BigInteger256 as BigInteger, Fp256Parameters, fields::FftParameters, FpParameters};
+use ark_ff::{biginteger::BigInteger256 as BigInteger, Fp256Parameters, fields::FftParameters, FpParameters, fields::Fp256};
 
 // #[derive(MontConfig)]
 // #[modulus = "7237005577332262213973186563042994240857116359379907606001950938285454250989"]
@@ -7,6 +7,8 @@ use ark_ff::{biginteger::BigInteger256 as BigInteger, Fp256Parameters, fields::F
 // #[small_subgroup_power = "1"]
 // pub struct FrConfig;
 // pub type Fr = Fp256<MontBackend<FrConfig, 4>>;
+
+pub type Fr = Fp256<FrParameters>;
 
 pub struct FrParameters;
 impl Fp256Parameters for FrParameters {}
@@ -76,10 +78,10 @@ impl FpParameters for FrParameters {
     
         // Encoded in Montgomery form, so the value here is 5R mod q.
         const GENERATOR: BigInteger = BigInteger([
-            0x2,
-            0x0,
-            0x0,
-            0x0,
+            0x55c5ffcebe3b564d,
+            0x78ffbe0a4404020b,
+            0xfffffffffffffffd,
+            0xfffffffffffffff,
         ]);
     
         const MODULUS_BITS: u32 = 253;
@@ -90,4 +92,31 @@ impl FpParameters for FrParameters {
     
         // INV = -q^{-1} (mod 2^64)
         const INV: u64 = 15183074304973897243;
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use core::ops::Mul;
+    use core::ops::Div;
+    // use std::println;
+
+    #[test]
+    fn temp() {
+        let _first = Fr::from(100).mul(Fr::from(200000000));
+        let _second = Fr::from(200).div(Fr::from(500));
+
+        let expected_second = Fr::from(BigInteger([
+            0xac65d505f76c2a04,
+            0x57ec22546f622b4f,
+            0xcccccccccccccccc,
+            0xccccccccccccccc
+        ]));
+
+        assert_eq!(expected_second, _second);
+
+        // TODO: Logging
+        // println!("First {:?}", _first);
+        // println!("Second {:?}", _second);
+    }
 }
